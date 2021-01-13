@@ -1,5 +1,5 @@
-# Module for Montage Lines** 
-
+# Module for Montage Lines
+*Author: Onur Mert ÇELDİR Date: 2020, October* 
 https://github.com/onurceldir123/montage-line-balancing-module/blob/main/Guide.pdf
 
 **PyBalance** is a Python package made for use as a guide in the creation, processing and analysis of assembly lines. 
@@ -208,5 +208,3 @@ Means the ratio between work station leisure time and cycle time.
 
 **Learn By Doing Example** 
 You can find it from guide.pdf file.
-
-*Author: Onur Mert ÇELDİR Date: 2020, October* 
