@@ -1,1 +1,1 @@
-<a href="/guide.pdf" class="image fit"></a>
+<a href="blob/main/Guide.pdf" class="image fit"></a>
