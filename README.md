@@ -1,6 +1,6 @@
 # Module for Montage Lines
 *Author: Onur Mert ÇELDİR Date: 2020, October* 
-<br>https://github.com/onurceldir123/montage-line-balancing-module/blob/main/Guide.pdf
+<br> PDF of this page: https://github.com/onurceldir123/montage-line-balancing-module/blob/main/Guide.pdf
 
 **PyBalance** is a Python package made for use as a guide in the creation, processing and analysis of assembly lines. 
 
