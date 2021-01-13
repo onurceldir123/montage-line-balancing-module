@@ -1,4 +1,6 @@
-**Module for Montage Lines** 
+# Module for Montage Lines** 
+
+https://github.com/onurceldir123/montage-line-balancing-module/blob/main/Guide.pdf
 
 **PyBalance** is a Python package made for use as a guide in the creation, processing and analysis of assembly lines. 
 
@@ -205,84 +207,6 @@ Means the ratio between work station leisure time and cycle time.
 ```
 
 **Learn By Doing Example** 
-
-Tell me, I'll forget; Show me, I may remember; But involve me, I will learn.
-
-\- Benjamin Franklin - 
-
-**Questions** 
-
-1. Import pybalance and create empty montage line. 
-1. Enter the information of the montage line given the task diagram and times. 
-
-
-
-|<p>Task </p><p>1 </p>|<p>Predecessors </p><p>- </p>|<p>Task Time </p><p>5 </p>|
-| - | - | - |
-|<p>2 </p><p>3 </p>|<p>1 </p><p>2 </p>|<p>3 </p><p>4 </p>|
-|<p>4 </p><p>5 </p>|<p>1 </p><p>4 </p>|<p>3 </p><p>6 </p>|
-|<p>6 </p><p>7 </p>|<p>3,5 </p><p>6 </p>|<p>5 </p><p>2 </p>|
-|<p>8 </p><p>9 </p>|<p>7 </p><p>6 </p>|<p>6 </p><p>1 </p>|
-|<p>11 </p><p>12 </p>|<p>10 </p><p>8, 9, 11 </p>|<p>4 </p><p>7 </p>|
-
-
-3. Balance the montage line using heuristic methods. (cycle time=18) 
-3. Balance the montage line using Comsoal algorithm and fetch the best 3 solutions  (cycle\_time=20) and print their line efficiencies. 
-3. Rearrange the [[1, 4, 2, 3], [5, 6, 7, 8, 9], [10, 11, 12]] using local search procedure and print its line efficiency(Old and new). 
-3. Using answer of Question 5 calculate station time of station 2. 
-
-**Answers**  
-
-1. >>> import pybalance as pb ![](pybalance%20user%20guide.016.png)
-
-\>>> line = pb.Line()
-
-2. >>> line.add\_task[[1, [0], 5], ![](pybalance%20user%20guide.017.png)
-
-\>>>               [2, [1], 3], 
-
-\>>>               [3, [2], 4], 
-
-\>>>               [4, [1], 3], 
-
-\>>>               [5, [4], 6], 
-
-\>>>               [6, [3,5], 5], 
-
-\>>>               [7, [6], 2], 
-
-\>>>               [8, [7], 6], 
-
-\>>>               [9, [6], 1], 
-
-\>>>               [10, [6], 4], 
-
-\>>>               [11, [10], 4], 
-
-\>>>               [12, [8,9,11], 7]]) 
-
-3. >>> line.heuristic\_method(18) ![](pybalance%20user%20guide.018.png)
-
-[[1, 4, 2, 5], [3, 6, 7, 10, 9], [8, 11, 12]] 
-
-4. >>> solutions = line.comsoal\_algorithm(cycle\_time=20, out=3) ![](pybalance%20user%20guide.019.png)
-
-\>>> for solution in solutions: 
-
-\>>>   print(solution, 'Line Efficiency:', line.calculate\_line\_efficiency(solution)) [[1, 4, 2, 5], [3, 6, 7, 8], [10, 11, 9, 12]] Line Efficiency: 98.03921568627452 [[1, 2, 3, 4], [5, 6, 7, 10], [8, 11, 9, 12]] Line Efficiency: 94.14393025894745 [[1, 2, 3, 4], [5, 6, 9, 10, 7], [8, 11, 12]] Line Efficiency: 94.14393025894745 
-
-5. >>> old\_line = [[1, 4, 2, 3], [5, 6, 7, 8, 9], [10, 11, 12]] ![](pybalance%20user%20guide.020.png)
-
-\>>> new\_line = line.local\_search\_procedure(old\_line, cycle\_time=20) 
-
-\>>> print(old\_line, ':', line.calculate\_line\_efficiency(old\_line)) 
-
-[[1, 4, 2, 3], [5, 6, 7, 8, 9], [10, 11, 12]] : 88.21488698022421 
-
-\>>> print(new\_line, 'Line Efficiency:', line.calculate\_line\_efficiency(new\_line)) [[1, 4, 2, 3], [5, 6, 7, 8], [9, 10, 11, 12]] : 91.2280701754386 
-
-6. >>> line.get\_station\_time(new\_line[1]) ![](pybalance%20user%20guide.021.png)
-
-16
+You can find it from guide.pdf file.
 
 *Author: Onur Mert ÇELDİR Date: 2020, October* 
