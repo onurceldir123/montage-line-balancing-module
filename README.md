@@ -19,17 +19,28 @@ This guide can help you start working with PyBalance.
 
 This section describes the most basic function of pybalance for beginners.  Creating an empty montage line. 
 
-\>>> import pybalance as pb >>> line ![](pybalance%20user%20guide.001.png)= pb.Line()
+```
+>>> import pybalance as pb
+```
 
 A line contains stations and tasks. Each task carries the task number, predecessors and duration of the task in it [task\_number, [predecessors], task\_time]. Tasks are defined to fill this line. 
 
-\>>> line.add\_task([ >>> ![](pybalance%20user%20guide.002.png) [1, [0], 2], >>>  [2, [1], 5], >>>  [3, [1], 4], >>>  [4, [2,3], 3] >>> ])
+```
+>>> line.add_task([
+>>> [1, [0], 2],
+>>> [2, [1], 5],
+>>> [3, [1], 4],
+>>> [4, [2,3], 3]
+>>> ])
+```
 
 You can balance the line you have created. Pybalance can balance many line types. If no parameters are entered, uses heuristic algorithms for single pattern lines. For this, cycle\_time must be entered as a parameter. 
 
-\>>> output = line.balance(6) # 6 is cycle time >>> output ![](pybalance%20user%20guide.003.png)
-
-[[1, 3], [2], [4]]
+```
+>>> output = line.balance( 6 ) # 6 is cycle time
+>>> output
+>>> [[1, 3], [2], [4]]
+```
 
 This result shows us the stations of montage line. Each element of the array is a separate station. 
 
@@ -43,48 +54,51 @@ Heuristic, mathematical and experimental methods can be used in balancing straig
 
 Heuristic methods are commonly used to balance these lines. It is sufficient to enter cycle\_time and method type (largest candidate rule('lcr') or helgeso-birnie('hb')) in heuristic methods. If method name is not entered, largest candidate rule('lcr') is used by default. Heuristic methods always give the same result. 
 
-\>>> montage\_line\_1 = line.heuristic\_method(12) # basic usage ![](pybalance%20user%20guide.004.png)>>> montage\_line\_1 
-
-[[1, 2, 3, 6], [4, 5, 7], [8, 9]] 
-
-\>>> montage\_line\_2 = line.heuristic\_method(cycle\_time=12, method="hb") # with parameters >>> montage\_line\_2 
-
-[[1, 3, 2], [5, 4, 6, 7], [8, 9]] 
+```
+>>> montage_line_1 = line.heuristic_method(12) # basic usage
+>>> montage_line_
+[[1, 2, 3, 6], [4, 5, 7], [8, 9]]
+>>> montage_line_2 = line.heuristic_method(cycle_time= 12 , method="hb") # with parameters
+>>> montage_line_
+[[1, 3, 2], [5, 4, 6, 7], [8, 9]]
+```
 
 ***COMSOAL algorithm:*** 
 
 COMSOAL is an algorithm where probabilities are generated randomly. Basic usage of COMSOAL is like this. 
 
-\>>> result = line.comsoal\_method(12) # basic usage, returns best result(cycle\_time=12) ![](pybalance%20user%20guide.005.png)[[1, 2, 5], [3, 4, 6], [7, 8, 9]] 
+```
+>>> result = line.comsoal_method(12) # basic usage, returns best result(cycle_time=12)
+[[1, 2, 5], [3, 4, 6], [7, 8, 9]]
+``` 
 
 It makes intuitive task assignment if local search parameter is not entered. Desired amount of iteration is done and desired amount of result is obtained. If desired, the best result can be brought. The out parameter specifies how many desired results will be returned. If it is called out='max' it brings the all results. If a number is entered, it returns the given number of results. Default iteration is 100. local\_search parameter will be explain detailed in the next sections. 
 
-\>>> # usage with parameters, returns best result ![](pybalance%20user%20guide.006.png)
-
-\>>> # in this result we have 4 results. Because out parameter is 4. 
-
-\>>> line.comsoal\_method(  
-
-\>>>  cycle\_time=12, # cycle time, default value is auto calculated. 
-
-\>>>  iteration=250, # how much iteration? Default value is 100 
-
-\>>>  local\_search="heuristic", # selecting local search method, default is "local" >>>  out=4 # how much result wanted? default value is 1. 
-
-\>>> ) 
-
-` `[[[1, 2, 5], [3, 4, 6], [7, 8, 9]],   [[1, 3, 2], [5, 6, 4, 7], [8, 9]],   [[1, 2, 3, 6], [5, 4, 7], [8, 9]],   [[1, 3, 2, 6], [4, 5, 7], [8, 9]]] 
+```
+>>> # usage with parameters, returns best result
+>>> # in this result we have 4 results. Because out parameter is 4.
+>>> line.comsoal_method(
+>>> cycle_time=12, # cycle time, default value is auto calculated.
+>>> iteration=250, # how much iteration? Default value is 100
+>>> local_search="heuristic", # selecting local search method, default is "local"
+>>> out=4 # how much result wanted? default value is 1.
+>>> )
+[[[1, 2, 5], [3, 4, 6], [7, 8, 9]],
+[[1, 3, 2], [5, 6, 4, 7], [8, 9]],
+[[1, 2, 3, 6], [5, 4, 7], [8, 9]],
+[[1, 3, 2, 6], [4, 5, 7], [8, 9]]]
+```
 
 ***Genetic Algorithms:*** 
 
 The use of genetic algorithms can increase the time it takes to get results. But probability of finding better results is higher. It needs only cycle\_time parameter by default. Probability mutation(p\_m), probability crossover(p\_c), number of generations(generation), population size(size), local search(local\_search),  desired number of outputs(out) are optional.  
 
 Warning! Changing with these parameters can dramatically alter processing times and results: 
-
-\>>> result = line.genetic\_algorithms(cycle\_time=12, local\_search='genetics', p\_c=0.5) >>> result ![](pybalance%20user%20guide.007.png)
-
-[[1, 3, 6], [2, 5, 4], [7, 8, 9]] 
-
+```
+>>> result = line.genetic_algorithms(cycle_time=12, local_search='genetics', p_c=0.5)
+>>> result
+[[1, 3, 6], [2, 5, 4], [7, 8, 9]]
+```
 **Type-U Line Balancing** 
 
 Pybalance contains Type-U montage line solutions. As in other algorithms, if only cycle\_time information is entered as parameter, it will show the fastest solution. 
@@ -93,57 +107,51 @@ Heuristic algorithms and COMSOAL algorithm can be used to solve these montage li
 
 Output returns 2 results. The first of these is the task sequence, the second is the information whether the line is in the front and back(F: front, B: back, F-B: front or back). 
 
-\>>> result = line.u\_type\_balance(12) ![](pybalance%20user%20guide.008.png)
-
-\>>> result[0] # returns stations and tasks 
-
-[[1, 9, 8, 2], [7, 3, 4], [5, 6]] 
-
-\>>> result[1] # returns task side: front(F), back(B), front or back(F-B) ['F', 'B', 'B', 'F', 'B', 'F', 'F-B', 'F-B', 'F-B'] 
+```
+>>> result = line.u_type_balance(12)
+>>> result[0] # returns stations and tasks
+[[1, 9, 8, 2], [7, 3, 4], [5, 6]]
+>>> result[1] # returns task side: front(F), back(B), front or back(F-B)
+['F', 'B', 'B', 'F', 'B', 'F', 'F-B', 'F-B', 'F-B']
+``` 
 
 More detailed searches can be made with different parameters if desired. out parameter determines the amount of results we will get. 
 
-\>>> result = line.u\_type\_balance(cycle\_time=11, method='comsoal', iteration=100, out=1) >>> result[0] ![](pybalance%20user%20guide.009.png)
-
-[[1, 9, 8], [7, 2, 5], [3, 4, 6]] 
-
-\>>> result[1] 
-
-['F', 'B', 'B', 'B', 'F', 'F-B', 'F', 'F-B', 'F-B'] 
+```
+>>> result = line.u_type_balance(cycle_time=11, method='comsoal', iteration=100, out=1)
+>>> result[0]
+[[1, 9, 8], [7, 2, 5], [3, 4, 6]]
+>>> result[1]
+['F', 'B', 'B', 'B', 'F', 'F-B', 'F', 'F-B', 'F-B']
+```
 
 **Local Search Procedure** 
 
 Local search allows us to find different solutions in the same task sequence. It is necessary to give station sequence as a parameter.  
 
-\>>> initial\_solution = [[1, 3, 2, 6], [5, 4, 7], [8, 9]] ![](pybalance%20user%20guide.010.png)
-
-\>>> ls\_solution = line.local\_search\_procedure(initial\_solution, cycle\_time=12) >>> ls\_solution 
-
-[[1, 3, 2], [6, 5, 4, 7], [8, 9]] 
+```
+>>> initial_solution = [[1, 3, 2, 6], [5, 4, 7], [8, 9]]
+>>> ls_solution = line.local_search_procedure(initial_solution, cycle_time=12)
+>>> ls_solution
+[[1, 3, 2], [6, 5, 4, 7], [8, 9]]
+```
 
 Heuristic methods ('heuristic'), predictive algorithms('local') or genetic algorithms('genetics') can be used. Genetic algorithms gives us the highest line efficiency but it uses much more calculation times. out parameter gives desired number of outputs. 
 
-\>>> initial\_solution = [[1, 3, 2, 6], [5, 4, 7], [8, 9]] ![](pybalance%20user%20guide.011.png)
-
-\>>> ls\_solution = line.local\_search\_procedure( 
-
-\>>>  initial\_solution, 
-
-\>>>   cycle\_time=12, 
-
-\>>>  local\_search='local', # it should be 'genetics' or 'heuristic' >>>  out=4 
-
-\>>> ) 
-
-\>>> ls\_solution # returns 4(out) different solutions. 
-
-[[[1, 3, 2, 6], [5, 4, 7], [8, 9]], 
-
-` `[[1, 3, 2, 6], [5, 4], [7, 8, 9]], 
-
-` `[[1, 3, 2], [6, 5, 4, 7], [8, 9]], 
-
-` `[[1, 3, 2], [6, 5, 4], [7, 8, 9]]] 
+```
+>>> initial_solution = [[1, 3, 2, 6], [5, 4, 7], [8, 9]]
+>>> ls_solution = line.local_search_procedure(
+>>> initial_solution,
+>>> cycle_time=12,
+>>> local_search='local', # it should be 'genetics' or 'heuristic'
+>>> out=
+>>> )
+>>> ls_solution # returns 4(out) different solutions.
+[[[1, 3, 2, 6], [5, 4, 7], [8, 9]],
+[[1, 3, 2, 6], [5, 4], [7, 8, 9]],
+[[1, 3, 2], [6, 5, 4, 7], [8, 9]],
+[[1, 3, 2], [6, 5, 4], [7, 8, 9]]]
+```
 
 **Analyzing Montage Lines** 
 
@@ -153,23 +161,31 @@ With pybalance, we can get detailed information about the assembly lines we use.
 
 Measure of how much balanced the line is. It needs only station\_list as a parameter. cycle\_time will auto calculated but it can be given as a parameter. 
 
-\>>> my\_line = [[1, 3, 2, 6], [5, 4, 7], [8, 9]] ![](pybalance%20user%20guide.012.png)
-
-\>>> line.calculate\_smooth\_index(my\_line, cycle\_time=12) 5.385164807134504 # % 
+```
+>>> my_line = [[1, 3, 2, 6], [5, 4, 7], [8, 9]]
+>>> line.calculate_smooth_index(my_line, cycle_time=12)
+5.385164807134504 # %
+```
 
 *Line Efficiency* 
 
 Line efficiency means the efficiency of working times as a result of balancing in assembly line. 
 
-\>>> my\_line = [[1, 3, 2, 6], [5, 4, 7], [8, 9]] ![](pybalance%20user%20guide.013.png)
-
-\>>> line.calculate\_line\_efficiency(my\_line, cycle\_time=12) 85.04120886907083 # % 
+```
+>>> my_line = [[1, 3, 2, 6], [5, 4, 7], [8, 9]]
+>>> line.calculate_line_efficiency(my_line, cycle_time=12)
+85.04120886907083 # %
+```
 
 *Loss of Balance* 
 
 Means the ratio between work station leisure time and cycle time. 
 
-\>>> my\_line = [[1, 3, 2, 6], [5, 4, 7], [8, 9]] >>> line.calculate\_loss\_balance(my\_line) 14.958791130929171 ![](pybalance%20user%20guide.014.png)# % 
+```
+>>> my_line = [[1, 3, 2, 6], [5, 4, 7], [8, 9]]
+>>> line.calculate_loss_balance(my_line)
+14.958791130929171 # %
+```
 
 *Total Work Time and simple Task Time* 
 
@@ -177,17 +193,16 @@ Means the ratio between work station leisure time and cycle time.
 
 **Task Time:** Time of the simple task 
 
-**Station Time:** Sum of the work time in station >>> my\_line = [[1, 3, 2, 6], [5, 4, 7], [8, 9]] >>> line.total\_work\_time(my\_line) ![](pybalance%20user%20guide.015.png)
-
-29 
-
-\>>> line.get\_task\_time(1) 
-
-2 
-
-\>>> line.get\_station\_time(my\_line[0]) 
-
-12 
+**Station Time:** Sum of the work time in station 
+```
+>>> my_line = [[1, 3, 2, 6], [5, 4, 7], [8, 9]]
+>>> line.total_work_time(my_line)
+29
+>>> line.get_task_time(1)
+2
+>>> line.get_station_time(my_line[0])
+12
+```
 
 **Learn By Doing Example** 
 
