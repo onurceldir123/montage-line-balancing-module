@@ -6,13 +6,13 @@
 
 ##### PyBalance provides:
 
-#####  Tools that assist in the creation, balancing and analyzing of assembly lines.
+##### - Tools that assist in the creation, balancing and analyzing of assembly lines.
 
-#####  A standart programming interface that is suitable for many applications
+##### - A standart programming interface that is suitable for many applications
 
-#####  Ability to work with large montage lines
+##### - Ability to work with large montage lines
 
-#####  Inspecting assembly lines, performance analysis, calculation of smoothness index, line
+##### - Inspecting assembly lines, performance analysis, calculation of smoothness index, line
 
 ##### efficiency, balance delay, minimum cycle time, productivity
 
