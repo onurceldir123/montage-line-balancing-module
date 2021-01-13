@@ -1,3 +1,3 @@
 # montage-line-balancing-module
-<a href="onurceldir123.github.io/montage-line-balancing-module/guide.pdf" target="_blank"></a>
-https://onurceldir123.github.io/montage-line-balancing-module/guide.pdf
+<embed src="https://github.com/onurceldir123/montage-line-balancing-module/blob/main/Guide.pdf" type="application/pdf" />
+https://github.com/onurceldir123/montage-line-balancing-module/blob/main/Guide.pdf
