@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pybalance"
+version = "2.0.0"
+description = "A Python package for assembly line balancing and optimization"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "GPL-3.0"}
+authors = [
+    {name = "Onur Mert Çeldir", email = "onurceldir123@gmail.com"}
+]
+keywords = ["assembly line balancing", "optimization", "manufacturing", "operations research"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Manufacturing",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "networkx>=2.5",
+    "numpy>=1.19.0",
+    "matplotlib>=3.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.10",
+    "black>=21.0",
+    "flake8>=3.8",
+    "mypy>=0.900",
+]
+
+[project.urls]
+Homepage = "https://github.com/onurceldir123/montage-line-balancing-module"
+"Bug Reports" = "https://github.com/onurceldir123/montage-line-balancing-module/issues"
+Source = "https://github.com/onurceldir123/montage-line-balancing-module"
+Documentation = "https://github.com/onurceldir123/montage-line-balancing-module/blob/main/Guide.pdf"
+
+[tool.black]
+line-length = 100
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+[tool.mypy]
+python_version = "3.7"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
